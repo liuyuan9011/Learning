@@ -66,7 +66,8 @@ struct hostent
     int h_addrtype;     //主机IP地址类型，IPV4为AF_INET
     int h_length;       //主机IP地址字节长度，对于IPV4是4字节，即32位
     char** h_addr_list; //主机IP地址列表
-        //注意，
+        //注意，地址列表里面的地址可以用ntop转换成点分十进制字符串,具体为什么暂时不明。
+        //从example1可以看出，ntop可以将网络字节序的那个结构体转化成点分十进制地址，也可以吧这里的char*类型转化成地址
 }
 
 #define h_addr h_addr_list[0]   //保存的是IP地址
