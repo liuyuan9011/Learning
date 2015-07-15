@@ -3,6 +3,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+
+//地址格式的转化
+
 int main(int argc, const char *argv[])
 {
     //首先定义一个点分式字符串IP地址

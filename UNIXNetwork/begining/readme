@@ -2,5 +2,11 @@
 struct in_addr;
 int inet_aton();
 char* inet_ntoa();
-in_addr_t inet
+in_addr_t inet_addr();
+int inet_pton();
+const char* inet_ntop();
 
+[example2]
+struct hostent;
+struct hostent* gethostbyname();
+struct hostent* gethostbyaddr();
