@@ -61,6 +61,15 @@ TCP通信基本步骤如下：
         {
             uint32_t s_addr;    //32位网络字节序IP地址，例：example1
         }
+        addrlen 是sockaddr的结构体长度。通常是计算sizeof(struct sockaddr)
+返回值：成功返回0， 失败返回-1
+常用实例：  
+    struct sockaddr_in my_addr; //定义结构体变量
+    memset(&myaddr, sizeof(struct sockaddr));   //将结构体清空
+    bzero(&my_addr, sizeof(struct sockaddr));
+    my_addr.sin_family = AF_INET;   //表示采用IPV4网络协议
+    //htons()用来将指定的16位hostshort转换成网络字符顺序
+    my_addr.sin_port = htons(8888); //表示端口号为8888,
 */
 
 
