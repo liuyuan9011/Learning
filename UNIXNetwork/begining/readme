@@ -10,3 +10,10 @@ const char* inet_ntop();
 struct hostent;
 struct hostent* gethostbyname();
 struct hostent* gethostbyaddr();
+const char* inet_ntop();
+
+[socket3]
+int socket)();
+int bind();
+struct sockaddr;
+
