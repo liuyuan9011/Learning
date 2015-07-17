@@ -13,7 +13,15 @@ struct hostent* gethostbyaddr();
 const char* inet_ntop();
 
 [socket3]
-int socket)();
+int socket();
 int bind();
 struct sockaddr;
+int listen(int sockfd, int backlog);
+int accept();
+int recv();
+int send();
+int close();
+int connect();
 
+[server4]
+a server example!
