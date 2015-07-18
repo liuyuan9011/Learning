@@ -30,6 +30,14 @@ int main(int argc, const char *argv[])
         close(sfd);
         exit(-1);
     }
+    //打印本地和链接后的套接口信息
+    int addrlen = sizeof(struct sockaddr);
+    struct sockaddr_in tmp_addr;
+    memset(&tmp_addr, 0, sizeof(struct sockaddr));
+    getpeername(sfd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);                                                   
+    printf("server socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
+    getsockname(sfd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);                                                   
+    printf("client socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
     
     //-----------send-------------
     printf("please input to send...");

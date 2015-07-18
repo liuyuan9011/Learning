@@ -10,6 +10,9 @@
 
 int main(int argc, const char *argv[])
 {
+    int addrlen = sizeof(struct sockaddr);
+    struct sockaddr_in tmp_addr;
+    memset(&tmp_addr, 0, sizeof(struct sockaddr));
     //-----------socket----------------
     //创建一个socket套接字，并用sfd文件描述符指向它
     //第一个参数指定IPV4或者IPV6网络协议
@@ -21,6 +24,8 @@ int main(int argc, const char *argv[])
         perror("socket");
         exit(-1);
     }
+    getsockname(sfd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);
+    printf("before bind listen socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
     
     //-----------bind----------------
     //这里是初始化服务器的套接字信息，然后bind将套接字信息与之前创建的套接口socket绑定起来
@@ -37,6 +42,8 @@ int main(int argc, const char *argv[])
         close(sfd);
         exit(-1);
     }
+    getsockname(sfd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);
+    printf("after bind listen socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
 
     //-----------listen-------------
     //设置之前定义的服务器套接字用于监听，最大连接数为10
@@ -53,7 +60,6 @@ int main(int argc, const char *argv[])
     printf("now accept ...\n");
     struct sockaddr_in client_addr;
     memset(&client_addr, 0, sizeof(struct sockaddr));
-    int addrlen = sizeof(struct sockaddr);
     int new_fd = accept(sfd, (struct sockaddr*)&client_addr, (socklen_t*)&addrlen);
     if (-1 == new_fd)
     {
@@ -62,6 +68,14 @@ int main(int argc, const char *argv[])
         exit(-1);
     }
     printf("%s %d success connect\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+    //打印本地套接口信息和连接后的套接口信息
+    getsockname(new_fd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);
+    printf("new socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
+    getsockname(sfd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);
+    printf("listen socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
+    getpeername(new_fd, (struct sockaddr*)&tmp_addr, (socklen_t*)&addrlen);
+    printf("client socket is %s %d\n", inet_ntoa(tmp_addr.sin_addr), ntohs(tmp_addr.sin_port));
+
     
     //----------recv--------------
     //从新的套接字获取结果，保存到buf中，最后的flag一般默认为0
