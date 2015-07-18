@@ -27,7 +27,7 @@ int main(int argc, const char *argv[])
     struct sockaddr_in my_addr; //定义结构体变量,此结构体专门用于存放套接口信息
     memset(&my_addr, 0, sizeof(struct sockaddr)); //初始化清空
     my_addr.sin_family = AF_INET;   //IPV4
-    my_addr.sin_port = htons(6779); //需要指定端口号
+    my_addr.sin_port = htons(8888); //需要指定端口号
     //my_addr.sin_addr.s_addr = inet_addr("120.132.72.182");
     //my_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     my_addr.sin_addr.s_addr = inet_addr("10.136.8.101");
