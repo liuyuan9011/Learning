@@ -1,4 +1,3 @@
-/*
 TCP通信基本步骤如下：
 服务端：socket-bind-listen-while(1){accept-recv-send-close}-close
 客户端：socket----------------------connect-send-recv-------close
@@ -41,6 +40,7 @@ TCP通信基本步骤如下：
             struct in_addr sin_addr;    //为IP地址
             unsigned char sin_zero[8];  //未使用
         }
+        //注意：sockaddr和sockaddr_in的区别：二者的占用的内存大小是一致的，因此可以互相转化，从这个意义上说，他们并无区别。sockaddr常用于bind、connect、recvfrom、sendto等函数的参数，指明地址信息。是一种通用的套接字地址。而sockaddr_in 是internet环境下套接字的地址形式。所以在网络编程中我们会对sockaddr_in结构体进行操作。使用sockaddr_in来建立所需的信息，最后使用类型转化就可以了。
         struct in_addr
         {
             uint32_t s_addr;    //32位网络字节序IP地址，例：example1
@@ -92,7 +92,7 @@ TCP通信基本步骤如下：
             puts(buf);
 
 7. send 函数：用新的套接字发送数据给指定的远端主机
-原型： int send(int s,const void * msg,int len,unsigned int flags);)}
+原型： int send(int s,const void * msg,int len,unsigned int flags);}
 参数：  s:为前面 accept 的返回值.即 new_fd
         msg:一般为常量字符串
         len:表示长度
@@ -122,7 +122,6 @@ TCP通信基本步骤如下：
             seraddr.sin_addr.s_addr = inet_addr("192.168.0.101"); //服务器的 ip
             if(connect(sfd, (struct sockaddr*)&seraddr, sizeof(struct sockaddr)) == -1)
                 {perror("connect");close(sfd);}
-*/
 
 
 
